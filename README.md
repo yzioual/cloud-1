@@ -2,8 +2,6 @@
 
 First of all, there is no cloud it’s just someone else’s computer.
 
----
-
 The projects consists of writing a deployment service using Ansible (or equivalent), this script must run on a real server using one of the available services like AWS, GCP or Azure.
 
 The requirements as follows:
