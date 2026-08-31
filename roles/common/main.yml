@@ -1,0 +1,30 @@
+---
+
+- name: Main entry
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update apt cache and update system deps
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: dist
+        cache_valid_time: 3600
+
+    - name: Update repository cache and upgrade all packages
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: yes
+        autoremove: yes
+        autoclean: yes
+
+    - name: Check if reboot is needed
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+      register: reboot_required_file
+
+    - name: Reboot server if kernel was updated
+      ansible.builtin.reboot:
+        msg: "Rebooting machine after apt upgrade"
+        reboot_timeout: 300
+      when: reboot_required_file.stat.exists
