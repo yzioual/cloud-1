@@ -1,3 +1,16 @@
 ---
 
-- name: Laucnh wordpress application
+- name: Deploy WordPress stack
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Copy WordPress project
+      ansible.builtin.copy:
+        src: ../../web/
+        dest: /opt/wordpress/
+
+    - name: Start WordPress stack
+      community.docker.docker_compose_v2:
+        project_src: /opt/wordpress/
+        state: present
