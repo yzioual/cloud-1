@@ -5,6 +5,14 @@
   become: true
 
   tasks:
+    - name: Create WordPress environment file
+      ansible.builtin.copy:
+        src: .env.j2
+        dest: /opt/wordpress/.env
+        owner: root
+        group: root
+        mode: '0600'
+
     - name: Copy WordPress project
       ansible.builtin.copy:
         src: ../../web/
