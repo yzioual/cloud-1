@@ -60,7 +60,7 @@ Track progress on remaining implementation and verification tasks below:
 
 ---
 
-## 🛠️ Usage Quick Start
+## Usage Quick Start
 
 ### 1. Requirements
 - Ansible `core >= 2.15`
