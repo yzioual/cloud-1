@@ -16,7 +16,7 @@
         direction: incoming
         default: deny
 
-    - name: Set deafult outgoing policy ot allow
+    - name: Set deafult outgoing policy to allow
       community.general.ufw:
         direction: outgoing
         default: allow
