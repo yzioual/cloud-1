@@ -1,0 +1,44 @@
+---
+
+- name: Ensure openssl is installed
+  ansible.builtin.apt:
+    name: openssl
+    state: present
+
+- name: Create WordPress project directory
+  ansible.builtin.file:
+    path: /opt/wordpress/nginx/ssl
+    state: directory
+    mode: "0755"
+    recurse: true
+
+- name: Generate self-signed TLS certificate
+  ansible.builtin.shell: |
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+      -keyout /opt/wordpress/nginx/ssl/server.key \
+      -out /opt/wordpress/nginx/ssl/server.crt \
+      -subj "/C=FR/ST=Paris/L=Paris/O=Cloud1/CN=localhost"
+  args:
+    creates: /opt/wordpress/nginx/ssl/server.crt
+
+- name: Create WordPress environment file
+  ansible.builtin.copy:
+    dest: /opt/wordpress/.env
+    owner: root
+    group: root
+    mode: '0600'
+    content: |
+      MYSQL_DATABASE={{ mysql_database }}
+      MYSQL_USER={{ mysql_user }}
+      MYSQL_PASSWORD={{ mysql_password }}
+      MYSQL_ROOT_PASSWORD={{ mysql_root_password }}
+
+- name: Copy WordPress project files
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/web/"
+    dest: /opt/wordpress/
+
+- name: Start WordPress stack
+  community.docker.docker_compose_v2:
+    project_src: /opt/wordpress/
+    state: present
