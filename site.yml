@@ -1,6 +1,6 @@
 ---
 
-- name: Deploy cloud-1
+- name: Deploy cloud-1-test-1
   hosts: all
   become: true
 

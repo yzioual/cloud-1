@@ -1,0 +1,10 @@
+---
+- name: Reboot
+  hosts: webserver
+  become: true
+  tasks:
+    - name: Reboot the server and wait for it to return
+      ansible.builtin.reboot:
+        reboot_timeout: 300
+        post_reboot_delay: 15
+        test_command: uptime

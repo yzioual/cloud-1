@@ -28,10 +28,10 @@
     group: root
     mode: '0600'
     content: |
-      MYSQL_DATABASE={{ mysql_database }}
-      MYSQL_USER={{ mysql_user }}
-      MYSQL_PASSWORD={{ mysql_password }}
-      MYSQL_ROOT_PASSWORD={{ mysql_root_password }}
+      MYSQL_DATABASE={{ MYSQL_DATABASE }}
+      MYSQL_USER={{ MYSQL_USER }}
+      MYSQL_PASSWORD={{ MYSQL_PASSWORD }}
+      MYSQL_ROOT_PASSWORD={{ MYSQL_ROOT_PASSWORD }}
 
 - name: Copy WordPress project files
   ansible.builtin.copy:
