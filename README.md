@@ -75,6 +75,15 @@ ansible-playbook -i inventory/dev.ini site.yml
 ansible-playbook -i inventory/prod.ini site.yml --ask-vault-pass
 ```
 
+### 3. Destroy & Redeploy (defense)
+```bash
+# Remove containers, images, volumes (WordPress + DB data) and /opt/wordpress
+ansible-playbook -i inventory/prod.ini actions/destroy.yml --ask-vault-pass
+
+# Redeploy from scratch
+ansible-playbook -i inventory/prod.ini site.yml --ask-vault-pass
+```
+
 
 
 

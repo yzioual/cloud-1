@@ -1,0 +1,30 @@
+---
+- name: Destroy the WordPress stack (containers, images, volumes, files)
+  hosts: all
+  become: true
+  tasks:
+    - name: Check if project directory exists
+      ansible.builtin.stat:
+        path: /opt/wordpress/docker-compose.yml
+      register: compose_file
+
+    - name: Stop and remove containers, networks, images and volumes
+      community.docker.docker_compose_v2:
+        project_src: /opt/wordpress/
+        state: absent
+        remove_volumes: true
+        remove_images: all
+      when: compose_file.stat.exists
+
+    - name: Remove named volumes (in case the compose file was already gone)
+      community.docker.docker_volume:
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - mariadb_data
+        - wordpress_data
+
+    - name: Remove project directory (compose files, .env, TLS certs)
+      ansible.builtin.file:
+        path: /opt/wordpress
+        state: absent
