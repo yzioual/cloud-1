@@ -18,8 +18,8 @@ This project automates the deployment of a secure, production-ready web infrastr
 | **TLS/HTTPS** | Nginx SSL/TLS termination with automatic HTTP -> HTTPS redirect | ✅ Configured |
 | **Multi-instance Support** | Parallel deployment across multiple inventory target hosts | ✅ Supported |
 | **Ansible Roles** | Modular role structure (`common`, `firewall`, `docker`, `stack`) | ✅ Implemented |
-| **Idempotency** | Ansible playbooks can run repeatedly without unintended side effects | 🔄 Pending Verification |
-| **Secrets Management** | Zero hardcoded secrets; encrypted via Ansible Vault | ⏳ In Progress |
+| **Idempotency** | Ansible playbooks can run repeatedly without unintended side effects | ✅ Configured Verification |
+| **Secrets Management** | Zero hardcoded secrets; encrypted via Ansible Vault | ✅ Configured |
 
 ---
 
